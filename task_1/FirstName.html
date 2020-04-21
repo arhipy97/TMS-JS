@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let data = [
+            {
+                firstName: 'Ashton',
+                lastName: 'Kutcher',
+                age: 40
+            }, {
+                firstName: 'Bradley',
+                lastName: 'Pitt',
+                age: 54
+            }, {
+                firstName: 'Hannah',
+                lastName: 'Dakota',
+                age: 24
+            }
+        ];
+        let arr = [];
+        let A = prompt("Введите данные пользователя","hannah")
+        let a = A[0].toUpperCase() + A.slice(1,A.length);
+        for (let elem of data){
+            if (a == elem.firstName){
+                alert(JSON.stringify(elem));
+            }else{ 
+               arr.push(false);
+            }
+        }
+        if (arr.length == data.length)
+            { alert("No results found for your request")}; 
+    </script>
+</body>
+</html>

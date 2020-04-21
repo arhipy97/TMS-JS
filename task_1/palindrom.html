@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function palindrom( word ){   
+            x = [];        
+            arr = word.split('');
+            rev = arr.reverse();
+            word_rev = rev.join('');
+            for (i = 0; i < word.length; i++){
+                if (word[i] !== word_rev[i]){
+                    alert(false);
+                    break;
+                }else{
+                    x.push(true); 
+                };   
+            };
+            console.log(x);
+            arr.length == x.length ? alert("Это полиндром!"): alert("Не полидром!");   
+        }    
+        text = prompt("Введите слово","шананаш");
+        palindrom( text );
+
+
+        // второй способ!
+        
+        // function polindrom(){
+        //     let str = prompt();
+        //     let i=0;
+        //     for( let i=0; (i < Math.floor(str.length / 2)); i++){
+        //         if(str[i] !== str[str.length - 1]){
+        //             return false;
+        //     }else{
+        //     return true;
+        //     }
+        // }
+        // }
+        // polindrom() == true ? alert("++"): alert ("--");
+    </script>
+</body>
+</html>
