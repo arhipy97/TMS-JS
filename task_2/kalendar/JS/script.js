@@ -3,8 +3,8 @@ function kalendar(year, month, element) {
 let DaysQuantity = new Date ( year, month , 0);
 let kd = new Date (year, month - 1,);
 let firstday = kd.getDay();
-if (day == 0) {
-    day = 7;
+if (firstday == 0) {
+    firstday = 7;
     }
 
 let table = "<table><tr><td>ПН</td><td>ВТ</td><td>СР</td><td>ЧТ</td><td>ПТ</td><td>СБ</td><td>ВС</td></tr>";
@@ -29,7 +29,7 @@ for (i = 1; i < DaysQuantity.getDate() + 1; i++) {
 for (i = 0; i < (7 - DaysQuantity.getDay()); i++) {
     table += "<td></td>"
     }
-calendar.innerHTML = table;
+element.innerHTML = table;
 }
 
 let yea = +prompt("Ведите год","2020");
