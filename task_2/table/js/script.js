@@ -1,4 +1,16 @@
-let elem = document.getElementById("list");
+let DeleteButton = document.querySelector(".DeleteUser");
+let AddButton = document.querySelector(".AddUser");
+let SearchButton = document.querySelector(".SearchUser");
+let ChangeButton = document.querySelector(".ChangeUser");
+
+DeleteButton.addEventListener('click',DeleteUser);
+AddButton.addEventListener('click',AddUser)
+SearchButton.addEventListener('click',SearchUser)
+ChangeButton.addEventListener('click',ChangeUser)
+
+let tbody = document.querySelector("tbody");
+console.log(tbody)
+
 let data = [
     {
         firstName: 'Ashton',
@@ -15,28 +27,76 @@ let data = [
     }
 ];
 
-// 1 способ
-// let table = "<table><tr><td>firstName</td><td>lastName</td><td>age</td></tr>";
 
-// for (let item of data) {
-//     table += "<td>" + item.firstName + "</td>";
-//     table += "<td>" + item.lastName + "</td>";
-//     table += "<td>" + item.age + "</td><tr></tr>";
-// }
+for (let i = 0; i < data.length; i++ ) {
+    let tr = document.createElement("tr");
 
-// 2 способ
-let table = "<table>";
-for (let option in data[0]) {
-    table += "<td>" + option + "</td>";
-}
-table += "<tr></tr>"
-for (i = 0; i < data.length; i++) {
-    for( let item in data[i]) {
-        table += "<td>" + data[i][item] + "</td>";
+    for (let item in data[i]) {
+        let td = document.createElement("td");
+        td.innerHTML = data[i][item];
+        tr.append(td)
     }
-    table += "<tr></tr>";
+
+    tbody.append(tr);
 }
- 
-elem.innerHTML = table;
+
+
+function DeleteUser(){
+    UserName = prompt("input name","Hannah");
+    tdAdd = document.body.querySelectorAll("td");
+    for ( let i = 0; i < tdAdd.length; i++) {
+        if (UserName === tdAdd[i].innerHTML) {
+            let tr = tdAdd[i].closest("tr");
+            tr.remove();
+        } 
+    }
+}
+
+
+function AddUser(){ 
+    UserFirstName = prompt("input name","Vasiliy");
+    UserLastName = prompt("input name","Tuorkin");
+    UserAge = prompt("input name","44");
+    let tr = document.createElement("tr");
+    tr.innerHTML = `
+    <td>${UserFirstName}</td>
+    <td>${UserLastName}</td>
+    <td>${UserAge}</td>`
+    tbody.append(tr);
+}
+
+
+function SearchUser() {
+    UserName = prompt("input name","Hannah"); 
+    for ( let i = 0; i < data.length; i++) {
+        for(let item in data[i]) {
+            if (UserName === data[i][item]) {
+                alert(JSON.stringify(data[i]));
+            } 
+        }
+        
+    } 
+}
+
+
+function ChangeUser() {
+    OldUserFirstName = prompt("input Firstname","Ashton");
+    OldUserLastName = prompt("input new SecondName","Kutcher");
+    NewUserFirstName = prompt("input new FirstName","Filipp");
+    NewUserLastName = prompt("input new SecondName","Kirkorov");
+    NewUserAge = prompt("input new age","28");
+    tdAdd = document.body.querySelectorAll("td");
+    for ( let i = 0; i < tdAdd.length; i++) {
+        if (OldUserFirstName === tdAdd[i].innerHTML) {
+            let NewTr = document.createElement("tr");
+            NewTr.innerHTML = `
+            <td>${NewUserFirstName}</td>
+            <td>${NewUserLastName}</td>
+            <td>${NewUserAge}</td>`
+            let tr = tdAdd[i].closest("tr");
+            tr.replaceWith(NewTr);
+        } 
+    }
+}
 
 

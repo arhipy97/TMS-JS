@@ -7,15 +7,23 @@
     <style>
         table {
           border-collapse: collapse;
+          margin-bottom: 2rem;
         }
         td {
             padding: 1rem;
             border: 0.1rem solid black;
         }
+        .space {
+            height: 26rem;
+        }
     </style>
 </head>
 <body>
-    <div id="calendar"></div>
+    <div class="space">
+        <div id="calendar"></div>
+    </div>
+    <input type="button" class="ButPrevious" value="Previous Month">
+    <input type="button" class="ButNext" value="Next Month">
     <script src="./JS/script.js"></script>
 </body>
 </html>
