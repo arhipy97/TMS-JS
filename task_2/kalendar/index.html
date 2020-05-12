@@ -14,16 +14,21 @@
             border: 0.1rem solid black;
         }
         .space {
-            height: 26rem;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        input{
+            height: 2rem;
         }
     </style>
 </head>
 <body>
     <div class="space">
         <div id="calendar"></div>
-    </div>
+    
     <input type="button" class="ButPrevious" value="Previous Month">
     <input type="button" class="ButNext" value="Next Month">
+    </div>
     <script src="./JS/script.js"></script>
 </body>
 </html>

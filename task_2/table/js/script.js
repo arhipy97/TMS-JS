@@ -1,16 +1,3 @@
-let DeleteButton = document.querySelector(".DeleteUser");
-let AddButton = document.querySelector(".AddUser");
-let SearchButton = document.querySelector(".SearchUser");
-let ChangeButton = document.querySelector(".ChangeUser");
-
-DeleteButton.addEventListener('click',DeleteUser);
-AddButton.addEventListener('click',AddUser)
-SearchButton.addEventListener('click',SearchUser)
-ChangeButton.addEventListener('click',ChangeUser)
-
-let tbody = document.querySelector("tbody");
-console.log(tbody)
-
 let data = [
     {
         firstName: 'Ashton',
@@ -26,6 +13,70 @@ let data = [
         age: 24
     }
 ];
+const DeleteButton = document.querySelector('.DeleteUser');
+const formAddUser = document.querySelector('form');
+
+let tbody = document.querySelector("tbody");
+
+function deleteUser(){
+    let deleteTr = this.closest('tr');
+    deleteTr.remove();
+}
+function addUser(firstName, lastName, age){ 
+    let tr = document.createElement("tr");
+    tr.innerHTML = `
+    <td>${firstName}</td>
+    <td>${lastName}</td>
+    <td>${age}</td>`
+    addTdWithBtns(tr);
+    tbody.append(tr);
+}
+function editRow() {
+    const tr = this.closest('tr');
+    const tdArr = tr.cells;
+    for(let i = 0; i < tdArr.length - 1; i++) {
+        const value = tdArr[i].querySelector('input').value;
+        tdArr[i].innerHTML = value;
+    }
+    tdArr[tdArr.length - 1].remove();
+    addTdWithBtns(tr);
+}
+function editUser() {
+    let tr = this.closest('tr');
+    let tdArr = tr.cells;
+    for(let i = 0; i < tdArr.length; i++) {
+        if(tdArr[i].classList.contains('btns_td')) {
+            tdArr[i].innerHTML = `<button class="submit_btn">ok</button>`;
+            const submitBtn = tdArr[i].querySelector('.submit_btn');
+            submitBtn.addEventListener('click', editRow);
+        } else { 
+            let tdValue = tdArr[i].innerHTML;
+            let input = document.createElement('input');
+            input.value = tdValue;
+            tdArr[i].innerHTML = '';
+            tdArr[i].append(input);
+        }
+    }
+}
+function addTdWithBtns(tr) {
+    let editUserBtn = document.createElement('button')
+    let deleteUserBtn = document.createElement('button');
+    let btnsTd = document.createElement('td');
+
+    editUserBtn.className = 'edit_user_btn';
+    deleteUserBtn.className = 'delete_user_btn';
+    btnsTd.className = 'btns_td';
+
+    editUserBtn.addEventListener('click', editUser);
+    deleteUserBtn.addEventListener('click', deleteUser);
+
+    editUserBtn.innerHTML = 'edit';
+    deleteUserBtn.innerHTML = 'delete'
+
+    btnsTd.append(editUserBtn);
+    btnsTd.append(deleteUserBtn);
+    tr.append(btnsTd);
+}
 
 
 for (let i = 0; i < data.length; i++ ) {
@@ -36,67 +87,17 @@ for (let i = 0; i < data.length; i++ ) {
         td.innerHTML = data[i][item];
         tr.append(td)
     }
-
+    addTdWithBtns(tr);
     tbody.append(tr);
 }
 
-
-function DeleteUser(){
-    UserName = prompt("input name","Hannah");
-    tdAdd = document.body.querySelectorAll("td");
-    for ( let i = 0; i < tdAdd.length; i++) {
-        if (UserName === tdAdd[i].innerHTML) {
-            let tr = tdAdd[i].closest("tr");
-            tr.remove();
-        } 
-    }
-}
-
-
-function AddUser(){ 
-    UserFirstName = prompt("input name","Vasiliy");
-    UserLastName = prompt("input name","Tuorkin");
-    UserAge = prompt("input name","44");
-    let tr = document.createElement("tr");
-    tr.innerHTML = `
-    <td>${UserFirstName}</td>
-    <td>${UserLastName}</td>
-    <td>${UserAge}</td>`
-    tbody.append(tr);
-}
-
-
-function SearchUser() {
-    UserName = prompt("input name","Hannah"); 
-    for ( let i = 0; i < data.length; i++) {
-        for(let item in data[i]) {
-            if (UserName === data[i][item]) {
-                alert(JSON.stringify(data[i]));
-            } 
-        }
-        
-    } 
-}
-
-
-function ChangeUser() {
-    OldUserFirstName = prompt("input Firstname","Ashton");
-    OldUserLastName = prompt("input new SecondName","Kutcher");
-    NewUserFirstName = prompt("input new FirstName","Filipp");
-    NewUserLastName = prompt("input new SecondName","Kirkorov");
-    NewUserAge = prompt("input new age","28");
-    tdAdd = document.body.querySelectorAll("td");
-    for ( let i = 0; i < tdAdd.length; i++) {
-        if (OldUserFirstName === tdAdd[i].innerHTML) {
-            let NewTr = document.createElement("tr");
-            NewTr.innerHTML = `
-            <td>${NewUserFirstName}</td>
-            <td>${NewUserLastName}</td>
-            <td>${NewUserAge}</td>`
-            let tr = tdAdd[i].closest("tr");
-            tr.replaceWith(NewTr);
-        } 
-    }
-}
-
+formAddUser.addEventListener('submit', (event) => {
+    console.log(event);
+    event.preventDefault();
+    let inputNameValue = event.target.querySelector('.input_name').value;
+    let inputSecondNameValue = event.target.querySelector('.input_second_name').value;
+    let inputAgeValue = event.target.querySelector('.input_age').value;
+    addUser(inputNameValue, inputSecondNameValue, inputAgeValue);
+    formAddUser.reset();
+});
 
